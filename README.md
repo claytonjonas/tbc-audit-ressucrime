@@ -1,70 +1,70 @@
 # Rezz Log
 
-Painel web para importar combat logs do World of Warcraft e visualizar todas
-as ressurreições (`SPELL_RESURRECT`) organizadas: quem curou, quem foi trazido
-de volta, com qual skill, e quando.
+Dashboard web para analisar ressurreições (`SPELL_RESURRECT`) em combat logs do World of Warcraft.
 
-Funciona com qualquer spell de ressurreição — Redemption, Rebirth, Ancestral
-Spirit, Resurrection, Mass Resurrection, etc. — sem precisar editar código,
-porque o parser lê o nome da spell direto do log.
+## Projeto
 
-**100% estático e client-side.** Não tem backend, não tem build step, e o
-combat log nunca sai do navegador do usuário — tudo é lido e processado
-localmente com `FileReader` + JavaScript puro.
+Aplicação 100% estática e client-side:
+- HTML/CSS/JavaScript puro
+- Chart.js via CDN
+- Nenhum backend
+- Nenhum build
+- Os combat logs são processados localmente no navegador
 
-## Estrutura do projeto
+## Estrutura
 
-```
+```text
 wow-resurrect-dashboard/
-├── index.html          # página única do dashboard
+├── index.html
 ├── css/
-│   └── style.css        # estilos (tema dark, inspirado na UI do próprio WoW)
+│   └── style.css
 ├── js/
-│   ├── parser.js         # parser do combat log -> lista de eventos
-│   └── app.js             # upload, agregação, gráficos, tabela
+│   ├── parser.js
+│   └── app.js
+├── .gitignore
 └── README.md
 ```
-## Como usar
 
-1. Abra o site.
-2. Arraste o(s) arquivo(s) `.txt` do combat log para a área de upload (ou
-   clique para escolher). Dá para importar vários arquivos de uma vez —
-   útil para juntar várias sessões de raid num só painel.
-3. O dashboard mostra:
-   - **Cards de resumo**: total de ressurreições, curadores distintos, quem
-     mais curou, quem mais "morreu".
-   - **Gráfico por curador**: ranking de quem mais ressuscitou.
-   - **Gráfico por skill/classe**: distribuição entre Redemption, Rebirth,
-     Ancestral Spirit, Resurrection etc., coloridas com as cores reais das
-     classes do WoW.
-   - **Ranking de alvos**: quem mais precisou ser trazido de volta.
-   - **Linha do tempo**: ressurreições por minuto ao longo da sessão.
-   - **Tabela completa**: todos os eventos, com busca por nome, filtro por
-     skill e ordenação por coluna.
-4. Botão **Limpar** no topo reseta e volta pra tela de upload.
+## Publicar no GitHub Pages
 
-## Adicionar novas skills de ressurreição
+1. Suba todos os arquivos para a raiz do repositório.
+2. No GitHub, abra **Settings → Pages**.
+3. Em **Build and deployment**, selecione:
+   - Source: **Deploy from a branch**
+   - Branch: **main**
+   - Folder: **/ (root)**
+4. Clique em **Save**.
 
-O parser já captura qualquer `SPELL_RESURRECT`, então spells novas aparecem
-automaticamente. Para colorir uma spell nova pela classe correta (em vez do
-cinza padrão "Outra"), edite o mapa em `js/parser.js`:
+Não é necessário criar Environment ou configurar Node/npm.
 
-```js
-const SPELL_CLASS_MAP = {
-  'Resurrection':      { class: 'Sacerdote', token: 'priest'  },
-  'Redemption':        { class: 'Paladino',  token: 'paladin' },
-  'Ancestral Spirit':  { class: 'Xamã',       token: 'shaman'  },
-  'Rebirth':           { class: 'Druida',    token: 'druid'   },
-  // adicione aqui, ex:
-  // 'Soulstone Resurrection': { class: 'Bruxo', token: 'warlock' },
-};
+A página ficará disponível em:
+
+```text
+https://SEU-USUARIO.github.io/SEU-REPOSITORIO/
 ```
 
-Se adicionar um `token` novo, defina também a cor dele em `CLASS_COLORS` no
-topo de `js/app.js`.
+## Uso
 
-## Tecnologias
+Abra o site e arraste um ou mais combat logs `.txt` para a área de upload.
 
-- HTML/CSS/JS puro (sem framework, sem build)
-- [Chart.js](https://www.chartjs.org/) via CDN, para os gráficos
-- Fontes: Cinzel (títulos), Inter (corpo), JetBrains Mono (dados numéricos)
+Os eventos de `SPELL_RESURRECT` são analisados no navegador e apresentados em:
+- total de ressurreições;
+- ranking de curadores;
+- distribuição por skill/classe;
+- jogadores mais ressuscitados;
+- linha do tempo;
+- tabela completa com filtros e busca.
+
+## Desenvolvimento local
+
+Você pode servir o projeto com Python:
+
+```bash
+python3 -m http.server 8000
+```
+
+Depois acesse `http://localhost:8000`.
+
+## Observação
+
+O `index.html` usa caminhos relativos (`css/style.css`, `js/parser.js` e `js/app.js`), portanto funciona normalmente em uma subpasta do GitHub Pages.

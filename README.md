@@ -24,51 +24,6 @@ wow-resurrect-dashboard/
 │   └── app.js             # upload, agregação, gráficos, tabela
 └── README.md
 ```
-
-## Rodar localmente
-
-Não precisa de `npm install` nem build. Basta servir os arquivos estáticos:
-
-```bash
-# opção 1: Python
-python3 -m http.server 8000
-
-# opção 2: Node (se tiver o pacote `serve` instalado)
-npx serve .
-```
-
-Depois abra `http://localhost:8000` no navegador.
-
-> Abrir o `index.html` direto com duplo-clique (`file://`) também funciona
-> na maioria dos navegadores, já que não há chamadas de servidor.
-
-## Publicar no GitHub Pages
-
-1. Crie um repositório novo no GitHub (pode ser público ou privado, mas o
-   GitHub Pages gratuito exige repositório público — ou GitHub Pro/Team para
-   privado).
-2. Suba os arquivos deste projeto para a raiz do repositório:
-
-   ```bash
-   git init
-   git add .
-   git commit -m "Rezz Log dashboard"
-   git branch -M main
-   git remote add origin https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-   git push -u origin main
-   ```
-
-3. No GitHub, vá em **Settings → Pages**.
-4. Em **Build and deployment → Source**, escolha **Deploy from a branch**.
-5. Em **Branch**, escolha `main` e a pasta `/ (root)`, depois clique **Save**.
-6. Aguarde 1–2 minutos. O site ficará disponível em:
-
-   ```
-   https://SEU-USUARIO.github.io/SEU-REPOSITORIO/
-   ```
-
-Qualquer novo `git push` para `main` atualiza o site automaticamente.
-
 ## Como usar
 
 1. Abra o site.
